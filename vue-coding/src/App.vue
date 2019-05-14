@@ -19,7 +19,7 @@ export default {
   name: 'app',
   data() {
     let activeNav = this.$router.currentRoute.name
-    console.log(activeNav)
+    console.log(this.$router.currentRoute)
     return {
       navLinks,
       activeNav, 
