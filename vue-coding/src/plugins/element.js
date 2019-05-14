@@ -8,6 +8,7 @@ import {
   Container,
   Header,
   Main,
+  Divider,
 } from 'element-ui'
 
 Vue.use(Button)
@@ -18,3 +19,4 @@ Vue.use(MenuItemGroup)
 Vue.use(Container)
 Vue.use(Header)
 Vue.use(Main)
+Vue.use(Divider)
