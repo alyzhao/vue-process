@@ -9,6 +9,7 @@ import {
   Header,
   Main,
   Divider,
+  Alert,
 } from 'element-ui'
 
 Vue.use(Button)
@@ -20,3 +21,4 @@ Vue.use(Container)
 Vue.use(Header)
 Vue.use(Main)
 Vue.use(Divider)
+Vue.use(Alert)

@@ -42,15 +42,70 @@
       </CurrentUser>
     </Cell>
 
+    <Cell>
+      <el-divider content-position="left">独占默认插槽的缩写语法</el-divider>
+      <CurrentUser :user="{firstName: 'Allen', lastName: 'Zhao'}" v-slot="userInfo">
+        <h3>{{userInfo.user.firstName}} 当被提供的内容只有默认插槽时，组件的标签才可以被当作插槽的模板来使用。</h3>
+      </CurrentUser>
+    </Cell>
+
+    <Cell>
+      <el-divider content-position="left">解构插槽 Prop</el-divider>
+      <CurrentUser :user="{firstName: 'Allen', lastName: 'Zhao'}" v-slot="{user}">
+        <i>{{user.firstName}} 作用域插槽的内部工作原理是将你的插槽内容包括在一个传入单个参数的函数里 </i>
+      </CurrentUser>
+      <p></p>
+      <CurrentUser :user="{firstName: 'Allen', lastName: 'Zhao'}" v-slot="{ user: person }">
+        {{ person.firstName }} 可以重命名
+      </CurrentUser>
+      <p></p>
+      <CurrentUser :user="{lastName: 'Zhao'}">
+        <template v-slot:other="{ user = {firstName: 'Guest'} }">
+          <strong> {{ user.firstName }} 可以设置默认参数, 用于插槽 prop 是 undefined 的情形, 这种情形实在子组件 没有提供 插槽props 并且必须用 &lt;templete&gt; 包裹起来, 限制条件太多了, 不实用!</strong>          
+        </template>
+      </CurrentUser>
+    </Cell>
+
+    <Cell>
+      <el-divider content-position="left">动态插槽名以及具名插槽的缩写</el-divider>
+      <BaseLayout>
+        <template v-slot:[dynamicSlotName]>
+          这是一个动态 slot 名 
+        </template>
+        <template #default>
+          该缩写只在其有参数的时候才可用 所以必须写成 #default
+        </template>
+        <template #footer>
+          footer
+        </template>
+      </BaseLayout>
+    </Cell>
+
+    <Cell>
+      <el-divider content-position="left">插槽示例</el-divider>
+      <el-alert>
+        <template #title>常见用法</template>
+        <template #default>访问子元素作用域的数据, 从而定制化组件, 循环功能都差不多, 但是要根据每一项数据的值进行过滤判断之类的, 作用域插槽能发挥用处</template>
+      </el-alert>
+      <TodoList :filteredTodos="filteredTodos">
+        <template #todo="{todo}">
+          <span v-if="todo.isComplete">✓</span>
+          {{todo.text}}
+        </template>
+      </TodoList>
+    </Cell>
+
 
   </div>
 </template>
 <script>
   import Cell from '@/components/Cell'
 
+  import TestComponent from './TestComponent'
   import Navigation from './NavigationLink'
   import BaseLayout from './BaseLayout'
   import CurrentUser from './CurrentUser'
+  import TodoList from './TodoList'
 
   export default {
     name: 'slotComponent',
@@ -59,10 +114,37 @@
       Cell,
       BaseLayout,
       CurrentUser,
+      TestComponent,
+      TodoList,
     },
     data() {
       return {
-
+        filteredTodos: [{
+          id: 1,
+          text: 'todo1',
+          isComplete: false
+        }, {
+          id: 2,
+          text: 'todo2',
+          isComplete: false
+        }, {
+          id: 3,
+          text: 'todo3',
+          isComplete: true
+        }, {
+          id: 4,
+          text: 'todo4',
+          isComplete: true
+        }, {
+          id: 5,
+          text: 'todo5',
+          isComplete: false
+        }]
+      }
+    },
+    computed: {
+      dynamicSlotName() {
+        return 'header'
       }
     }
   }

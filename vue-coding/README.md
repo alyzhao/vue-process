@@ -27,3 +27,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### problems
+
+1. 动态路由, currentRoute 取到的值会不正确
