@@ -99,7 +99,7 @@
   </div>
 </template>
 <script>
-  import Cell from '@/components/Cell'
+  // import Cell from '@/components/Cell'
 
   import TestComponent from './TestComponent'
   import Navigation from './NavigationLink'
@@ -111,7 +111,7 @@
     name: 'slotComponent',
     components: {
       Navigation,
-      Cell,
+      // Cell,
       BaseLayout,
       CurrentUser,
       TestComponent,

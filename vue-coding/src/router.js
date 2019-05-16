@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Home from './views/Home.vue'
 import Slot from  './views/slot/Index.vue'
+import Template from './views/template/Index.vue'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: Slot
+    },
+    {
+      path: '/template',
+      name: 'Template',
+      component: Template
     }
   ]
 })

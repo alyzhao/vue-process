@@ -4,6 +4,9 @@ const navLinks = [{
 }, {
   path: '/slot',
   name: 'Slot'
+}, {
+  path: '/template',
+  name: 'Template'
 }]
 
 export default navLinks
