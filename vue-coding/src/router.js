@@ -4,6 +4,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Slot from  './views/slot/Index.vue'
 import Template from './views/template/Index.vue'
+import ComputedWatch from './views/computed-watch/Index.vue'
+import Vif from './views/v-if/Index.vue'
 
 Vue.use(Router)
 
@@ -32,6 +34,16 @@ export default new Router({
       path: '/template',
       name: 'Template',
       component: Template
+    },
+    {
+      path: '/computed-watch',
+      name: 'ComputedWatch',
+      component: ComputedWatch
+    },
+    {
+      path: '/v-if',
+      name: 'Vif',
+      component: Vif
     }
   ]
 })

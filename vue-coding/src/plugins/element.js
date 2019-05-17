@@ -10,6 +10,9 @@ import {
   Main,
   Divider,
   Alert,
+  Input,
+  Row,
+  Col
 } from 'element-ui'
 
 Vue.use(Button)
@@ -22,3 +25,6 @@ Vue.use(Header)
 Vue.use(Main)
 Vue.use(Divider)
 Vue.use(Alert)
+Vue.use(Input)
+Vue.use(Row)
+Vue.use(Col)
