@@ -13,6 +13,9 @@ const navLinks = [{
 }, {
   path: '/v-if',
   name: 'Vif'
+}, {
+  path: '/events',
+  name: 'Events'
 }]
 
 export default navLinks

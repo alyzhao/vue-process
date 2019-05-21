@@ -9,6 +9,7 @@
 
     <Cell>
       <el-divider content-position="left">计算属性排序会改变原始数据么?</el-divider>
+      <p><strong><em>直接用sort会改变原来的数组, 所以用slice拷贝一份数组</em></strong></p>
       <ul>
         <li v-for="item in sortList" v-if="!item.isComplete" :key="item.id" >{{item.text}}</li>
       </ul>

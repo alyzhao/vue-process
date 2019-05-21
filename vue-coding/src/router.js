@@ -6,6 +6,7 @@ import Slot from  './views/slot/Index.vue'
 import Template from './views/template/Index.vue'
 import ComputedWatch from './views/computed-watch/Index.vue'
 import Vif from './views/v-if/Index.vue'
+import Events from './views/events/Index.vue'
 
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ export default new Router({
       path: '/v-if',
       name: 'Vif',
       component: Vif
+    },
+    {
+      path: '/events',
+      name: 'Events',
+      component: Events
     }
   ]
 })
