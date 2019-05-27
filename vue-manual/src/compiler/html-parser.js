@@ -59,6 +59,10 @@ function makeMap(values) {
 // Inline Elements
 var inline = makeMap('a,abbr,acronym,applet,b,basefont,bdo,big,br,button,cite,code,del,dfn,em,font,i,iframe,img,input,ins,kbd,label,map,noscript,object,q,s,samp,script,select,small,span,strike,strong,sub,sup,svg,textarea,tt,u,var')
 
+// Elements that you can, intentionally, leave open
+// (and which close themselves)
+var closeSelf = makeMap('colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr,source')
+
 // Special Elements (can contain anything)
 var special = makeMap('script,style')
 
@@ -162,6 +166,9 @@ export default function HTMLParser(html, handler) {
             }
           }
 
+          if (closeSelf(tagName) && lastTag === tagName) {
+            
+          }
 
         }
 
