@@ -12,7 +12,8 @@ import {
   Alert,
   Input,
   Row,
-  Col
+  Col,
+  Link,
 } from 'element-ui'
 
 Vue.use(Button)
@@ -28,3 +29,4 @@ Vue.use(Alert)
 Vue.use(Input)
 Vue.use(Row)
 Vue.use(Col)
+Vue.use(Link)
