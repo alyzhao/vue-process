@@ -268,8 +268,46 @@ export function extractContent (el, asFragment) {
   var rawContent
   /* istanbul ignore if */
   if (isTemplate(el) && isFragment(el.content)) {
-    
+    el = el.content
   }
+  if (el.hasChildNodes()) {     // hasChildNodes 原生方法
+    trimNode(el)
+    rawContent = asFragment
+      ? document.createDocumentFragment()
+      : document.createElement('div')
+    /* eslint-disable no-cond-assign */
+    while (child = el.firstChild) {
+      /* eslint-enable no-cond-assign */
+      rawContent.appendChild(child)
+    }
+  }
+  return rawContent
+}
+
+/**
+ * Trim possible empty head/tail text and comment
+ * nodes inside a parent.
+ *
+ * @param {Node} node
+ */
+
+export function trimNode (node) {
+  var child
+  /* eslint-disable no-sequences */
+  while (child = node.firstChild, isTrimmable(child)) {
+    node.removeChild(child)
+  }
+  while (child = node.lastChild, isTrimmable(child)) {
+    node.removeChild(child)
+  }
+  /* eslint-enable no-sequences */
+}
+
+function isTrimmable (node) {
+  return node && (
+    (node.nodeType === 3 && !node.data.trim()) ||
+    node.nodeType === 8
+  )
 }
 
 /**
@@ -285,3 +323,66 @@ export function isTemplate (el) {
     el.tagName.toLowerCase() === 'template'
 }
 
+/**
+ * Create an "anchor" for performing dom insertion/removals.
+ * This is used in a number of scenarios:
+ * - fragment instance
+ * - v-html
+ * - v-if
+ * - v-for
+ * - component
+ *
+ * @param {String} content
+ * @param {Boolean} persist - IE trashes empty textNodes on
+ *                            cloneNode(true), so in certain
+ *                            cases the anchor needs to be
+ *                            non-empty to be persisted in
+ *                            templates.
+ * @return {Comment|Text}
+ */
+
+export function createAnchor (content, persist) {
+  var anchor = config.debug
+    ? document.createComment(content)
+    : document.createTextNode(persist ? ' ' : '')
+  anchor.__v_anchor = true
+  return anchor
+}
+
+/**
+ * Find a component ref attribute that starts with $.
+ *
+ * @param {Element} node
+ * @return {String|undefined}
+ */
+
+var refRE = /^v-ref:/
+export function findRef (node) {
+  if (node.hasAttributes()) {
+    var attrs = node.attributes
+    for (var i = 0, l = attrs.length; i < l; i++) {
+      var name = attrs[i].name
+      if (refRE.test(name)) {
+        return camelize(name.replace(refRE, ;))
+      }
+    }
+  }
+}
+
+/**
+ * Get outerHTML of elements, taking care
+ * of SVG elements in IE as well.
+ *
+ * @param {Element} el
+ * @return {String}
+ */
+
+export function getOuterHTML (el) {
+  if (el.outerHTML) {
+    return el.outerHTML
+  } else {
+    var container = document.createElement('div')
+    container.appendChild(el.cloneNode(true))
+    return container.innerHTML
+  }
+}
