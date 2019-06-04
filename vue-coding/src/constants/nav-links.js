@@ -16,6 +16,12 @@ const navLinks = [{
 }, {
   path: '/events',
   name: 'Events'
+}, {
+  path: '/forms',
+  name: 'Forms'
+}, {
+  path: 'components',
+  name: 'Components'
 }]
 
 export default navLinks

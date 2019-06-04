@@ -22,7 +22,7 @@ export default {
     console.log(this.$router.currentRoute)
     return {
       navLinks,
-      activeNav, 
+      activeNav,
     }
   },
   mounted() {

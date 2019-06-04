@@ -8,6 +8,9 @@ import ComputedWatch from './views/computed-watch/Index.vue'
 import Vif from './views/v-if/Index.vue'
 import Events from './views/events/Index.vue'
 
+import Forms from './views/forms/Index.vue'
+import Components from './views/components/Index.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -50,6 +53,16 @@ export default new Router({
       path: '/events',
       name: 'Events',
       component: Events
+    },
+    {
+      path: '/forms',
+      name: 'Forms',
+      component: Forms
+    },
+    {
+      path: '/components',
+      name: 'Components',
+      component: Components
     }
   ]
 })
