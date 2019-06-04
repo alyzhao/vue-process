@@ -11,6 +11,8 @@ import Events from './views/events/Index.vue'
 import Forms from './views/forms/Index.vue'
 import Components from './views/components/Index.vue'
 
+import ComponentsDepth from './views/components-depth/Index.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -63,6 +65,11 @@ export default new Router({
       path: '/components',
       name: 'Components',
       component: Components
+    },
+    {
+      path: '/components-depth',
+      name: 'ComponentsDepth',
+      component: ComponentsDepth
     }
   ]
 })

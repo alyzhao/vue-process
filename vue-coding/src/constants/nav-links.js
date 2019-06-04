@@ -20,8 +20,11 @@ const navLinks = [{
   path: '/forms',
   name: 'Forms'
 }, {
-  path: 'components',
+  path: '/components',
   name: 'Components'
+}, {
+  path: '/components-depth',
+  name: 'ComponentsDepth'
 }]
 
 export default navLinks
