@@ -14,6 +14,7 @@
         <li><el-link type="warning" :underline="false">.self</el-link> 只当在 event.target 是当前元素自身时触发处理函数</li>
         <li><el-link type="warning" :underline="false">.once</el-link> 点击事件将只会触发一次</li>
         <li><el-link type="warning" :underline="false">.passive</el-link> 对应 addEventListener 中 options 中的 passive(永远不会调用 preventDefault, 提高移动端性能)</li>
+        <li><el-link type="warning" :underline="false">.native</el-link> 在一个组件的根元素上直接监听一个原生事件 </li>
       </ul>
       <p><a href="https://cn.vuejs.org/v2/guide/events.html" @click.prevent="prevent">prevent 修饰符, 阻止默认事件</a></p>
       <div @click.capture="propagation('outter')" style="padding: 20px 0;">

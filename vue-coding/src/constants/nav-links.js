@@ -25,6 +25,9 @@ const navLinks = [{
 }, {
   path: '/components-depth',
   name: 'ComponentsDepth'
+}, {
+  path: '/components-edge-cases',
+  name: 'ComponentsEdgeCases'
 }]
 
 export default navLinks

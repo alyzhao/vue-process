@@ -13,6 +13,8 @@ import Components from './views/components/Index.vue'
 
 import ComponentsDepth from './views/components-depth/Index.vue'
 
+import ComponentsEdgeCases from './views/components-edge-cases/Index.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -70,6 +72,11 @@ export default new Router({
       path: '/components-depth',
       name: 'ComponentsDepth',
       component: ComponentsDepth
+    },
+    {
+      path: '/components-edge-cases',
+      name: 'ComponentsEdgeCases',
+      component: ComponentsEdgeCases
     }
   ]
 })

@@ -25,5 +25,8 @@
   .home-pre {
     color: #409EFF;
     font-size: 18px;
+    border: none;
+    background-color: unset;
+    line-height: normal;
   }
 </style>
