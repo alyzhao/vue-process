@@ -28,6 +28,9 @@ const navLinks = [{
 }, {
   path: '/components-edge-cases',
   name: 'ComponentsEdgeCases'
+}, {
+  path: '/multiplexing',
+  name: 'Multiplexing'
 }]
 
 export default navLinks

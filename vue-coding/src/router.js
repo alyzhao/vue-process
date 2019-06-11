@@ -15,6 +15,8 @@ import ComponentsDepth from './views/components-depth/Index.vue'
 
 import ComponentsEdgeCases from './views/components-edge-cases/Index.vue'
 
+import Multiplexing from './views/multiplexing/Index.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -77,6 +79,11 @@ export default new Router({
       path: '/components-edge-cases',
       name: 'ComponentsEdgeCases',
       component: ComponentsEdgeCases
+    },
+    {
+      path: '/multiplexing',
+      name: 'Multiplexing',
+      component: Multiplexing
     }
   ]
 })

@@ -24,9 +24,6 @@ export default {
       navLinks,
       activeNav,
     }
-  },
-  mounted() {
-    console.log(this.$router.currentRoute.name)
   }
 }
 </script>

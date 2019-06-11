@@ -193,11 +193,93 @@ strats.props =
 strats.methods =
 strats.computed = function (parentVal, childVal) {
   if (!childVal) return parentVal
+  if (!parentVal) return childVal
+  var ret = Object.create(null)
+  extend(ret, parentVal)
+  extend(ret, childVal)
+  return ret
 }
 
+/**
+ * Default strategy.
+ */
 
+var defaultStrat = function (parentVal, childVal) {
+  return childVal === undefined
+    ? parentVal
+    : childVal
+}
 
+/**
+ * Make sure component options get converted to actual
+ * constructors.
+ *
+ * @param {Object} options
+ */
 
+function guardComponents (options) {
+  if (options.components) {
+    var components = options.components =
+      guardArrayAssets(options.components)
+    var ids = Object.keys(components)
+    var def
+    if (process.env.NODE_ENV !== 'production') {
+      var map = options._componentNameMap = {}
+    }
+    for (var i = 0, l = ids.length; i < l; i++) {
+      var key = ids[i]
+      if (commonTagRE.test(key) || reservedTagRE.test(key)) {
+        process.env.NODE_ENV !== 'production' && warn(
+          'Do not use built-in or reserved HTML elements as component ' + 
+          'id: ' + key
+        )
+      }
+      continue
+    }
+    // record a all lowercase <-> kebab-case mapping for 
+    // possible custom element case error warning
+    if (process.env.NODE_ENV !== 'production') {
+      map[key.replace(/-/g, '').toLowerCase()] = hyphenate(key)
+    }
+    def = components[key]
+    if (isPlainObject(def)) {
+      components[key] = Vue.extend(def)
+    }
+  }
+}
+
+/**
+ * Ensure all props option syntax are normalized into the
+ * Object-based format.
+ *
+ * @param {Object} options
+ */
+
+function guardProps (options) {
+  var props = options.props
+  var i, val
+  if (isArray(props)) {
+    options.props = {}
+    i = props.length
+    while (i--) {
+      val = props[i]
+      if (typeof val === 'string') {
+        options.props[val] = null
+      } else if (val.name) {
+        options.props[val.name] = val
+      }
+    }
+  } else if (isPlainObject(props)) {
+    var keys = Object.keys(props)
+    i = keys.length
+    while (i--) {
+      val = props[keys[i]]
+      if (typeof val === 'function') {
+        props[keys[i]] = { type: val }
+      }
+    }
+  }
+}
 
 /**
  * Guard an Array-format assets option and converted it
@@ -228,4 +310,72 @@ function guardArrayAssets (assets) {
     return res
   }
   return assets
+}
+
+/**
+ * Merge two option objects into a new one.
+ * Core utility used in both instantiation and inheritance.
+ *
+ * @param {Object} parent
+ * @param {Object} child
+ * @param {Vue} [vm] - if vm is present, indicates this is
+ *                     an instantiation merge.
+ */
+
+export function mergeOptions (parent, child, vm) {
+  guardComponents(child)
+  guardProps(child)
+  var option = {}
+  var key
+  if (child.mixins) {
+    for (var i = 0, l = child.mixins.length; i < l; i++) {
+      parent = mergeOptions(parent, child.mixins[i], vm)
+    }
+  }
+  for (key in parent) {
+    mergeField(key)
+  }
+  for (key in child) {
+    if (!hasOwn(parent, key)) {
+      mergeField(key)
+    }
+  }
+  function mergeField (key) {
+    var strat = strats[key] || defaultStrat
+    options[key] = strat(parent[key], child[key], vm, key)
+  }
+  return options
+}
+
+/**
+ * Resolve an asset.
+ * This function is used because child instances need access
+ * to assets defined in its ancestor chain.
+ *
+ * @param {Object} options
+ * @param {String} type
+ * @param {String} id
+ * @param {Boolean} warnMissing
+ * @return {Object|Function}
+ */
+
+export function resolveAsset (options, type, id, warnMissing) {
+  /* istanbul ignore if */
+  if (typeof id !== 'string') {
+    return
+  }
+  var assets = options[type]
+  var camelizedId
+  var res = assets[id] ||
+    // camelCase ID
+    assets[camelizedId = camelize(id)] ||
+    // Pascal Case ID
+    assets[camelizedId.charAt(0).toUpperCase() + camelizedId.slice(1)]
+  if (process.env.NODE_ENV !== 'production' && warnMissing && !res) {
+    warn(
+      'Failed to resolve ' + type.slice(0, -1) + ': ' + id,
+      options
+    )
+  }
+  return res
 }

@@ -405,4 +405,3 @@ export function looseEqual (a, b) {
   )
   /* eslint-enable eqeqeq */
 }
-

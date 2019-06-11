@@ -77,6 +77,27 @@
       <TreeFolder :folder="folder" />
     </Cell>
 
+    <Cell>
+      <el-divider content-position="left">inline-template</el-divider>
+      <my-component inline-template>
+        <div>
+          <p>{{testInline}}</p>
+          <p>These are compiled as the component's own template.</p>
+          <p>Not parent's transclusion content.</p>
+        </div>
+      </my-component>
+    </Cell>
+
+    <Cell>
+      <el-divider content-position="left">控制更新</el-divider>
+      <p class="guess">vm.$forceUpdate() 迫使 Vue 实例重新渲染。注意它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。</p>
+
+      <div v-once>
+        <p>v-once 创建低开销的静态组件 {{onceData}} <button @click="onceData += 1">onceData update</button></p>
+        <p class="guess">在元素上使用 v-once 指令之后, data 就不会被更新</p>
+      </div>
+    </Cell>
+
   </div>
 </template>
 <script>
@@ -94,6 +115,13 @@
       Event,
       Recursive,
       TreeFolder,
+      'my-component': {
+        data() {
+          return {
+            testInline: 'inline-template'            
+          }
+        }
+      }
     },
     provide: {
       provideData: {
@@ -127,7 +155,8 @@
               name: 'folder22',
             }]
           }]
-        }
+        },
+        onceData: 0
       }
     },
     created() {
