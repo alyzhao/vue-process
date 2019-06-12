@@ -129,6 +129,14 @@
         componentValue: ''
       }
     },
+    created: [
+      function() {console.log('a')},
+      function() {console.log('b')},
+      function() {console.log('c')},
+      // console.log.bind(null, 'a'),
+      // console.log.bind(null, 'b'),
+      // console.log.bind(null, 'c'),
+    ],
     methods: {
       focusHandle() {
         console.log('focus $listeners')

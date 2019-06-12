@@ -7,6 +7,12 @@
       a: Number,
       b: Boolean,
       c: String
+    },
+    data({a}) {
+      console.log(a)
+      return {
+        aa: a
+      }
     }
   }
 </script>

@@ -17,9 +17,12 @@ import navLinks from '@/constants/nav-links'
 
 export default {
   name: 'app',
+  created() {
+    console.log(this.$options)
+  },
   data() {
     let activeNav = this.$router.currentRoute.name
-    console.log(this.$router.currentRoute)
+    console.log(this)
     return {
       navLinks,
       activeNav,
