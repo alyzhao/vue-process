@@ -6,6 +6,7 @@
       </el-menu>
     </el-header>    
     <el-main>
+      <div>{{arr}} <button @click="test">test</button></div>
       <router-view></router-view>      
     </el-main>
   </el-container>
@@ -19,6 +20,8 @@ export default {
   name: 'app',
   created() {
     console.log(this.$options)
+    console.log(this.navLinks)
+    // this.arr[0] = 5
   },
   data() {
     let activeNav = this.$router.currentRoute.name
@@ -26,6 +29,12 @@ export default {
     return {
       navLinks,
       activeNav,
+      arr: [1, 2, 3]
+    }
+  },
+  methods: {
+    test() {
+      this.$set(this.arr, 0, 5)
     }
   }
 }
